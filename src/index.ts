@@ -1,10 +1,18 @@
 /*const express = require('express')*/  // old
-import  express from 'express'
+import express, {Request, Response} from 'express'
+import bodyParser from 'body-parser'
+import cors from 'cors'
+
 const app = express()
+
+const corsMiddleware = cors();
+app.use(corsMiddleware)
+
+const jsonBodyMiddleware = bodyParser.json()
+app.use(jsonBodyMiddleware)
+
 const port = process.env.PORT || 3000
 
-const jsonBodyMiddleware = express.json()
-app.use(jsonBodyMiddleware)
 
 const db = {
     courses: [
@@ -20,7 +28,7 @@ app.get('/', (req, res) => {
     if(a > 5) {
         res.send('OK less 5')
     } else {
-        res.send({message:'hello World.'})
+        res.send({message:'hello World. 2'})
     }
 })
 app.get('/courses', (req, res) => {

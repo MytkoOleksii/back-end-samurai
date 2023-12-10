@@ -3,6 +3,19 @@ import express from 'express'
 const app = express()
 const port = 3000
 
+const fs = require('fs')
+const readFile = (path) => {
+    return new Promise((resolve, reject) => {
+        fs.readFile(path, (error, data) => {
+            if (error) {
+                reject(error)
+            } else {
+                resolve(data)
+            }
+        })
+    })
+}
+
 const jsonBodyMiddleware = express.json()
 app.use(jsonBodyMiddleware)
 
@@ -20,7 +33,7 @@ app.get('/', (req, res) => {
     if(a > 5) {
         res.send('OK less 5')
     } else {
-        res.send({message:'hello World'})
+        res.send(fs.readFile('pages/home.html'))
     }
 })
 app.get('/courses', (req, res) => {

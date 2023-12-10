@@ -1,5 +1,5 @@
-/*const express = require('express')*/  // old
-import express, {Request, Response} from 'express'
+const express = require('express')  // old
+//import express, {Request, Response} from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 
@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
     if(a > 5) {
         res.send('OK less 5')
     } else {
-        res.send({message:'hello World. 2'})
+        res.send({message:'hello World. 3'})
     }
 })
 app.get('/courses', (req, res) => {

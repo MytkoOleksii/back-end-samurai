@@ -77,6 +77,8 @@ app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
 
+
+
 /* method POST
 fetch('http://localhost:3000/courses', { method: 'post', body: JSON.stringify({title: 'Hi'}),
     headers: {

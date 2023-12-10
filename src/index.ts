@@ -1,5 +1,5 @@
 /*const express = require('express')*/  // old
-import express from 'express'
+import  * as  express from 'express'
 const app = express()
 const port = process.env.PORT || 3000
 

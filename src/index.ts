@@ -1,5 +1,5 @@
 /*const express = require('express')*/  // old
-import  * as  express from 'express'
+import  express from 'express'
 const app = express()
 const port = process.env.PORT || 3000
 
@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
     if(a > 5) {
         res.send('OK less 5')
     } else {
-        res.send({message:'hello World!!!'})
+        res.send({message:'hello World.'})
     }
 })
 app.get('/courses', (req, res) => {

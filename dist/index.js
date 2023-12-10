@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /*const express = require('express')*/ // old
 const express_1 = __importDefault(require("express"));
 const app = (0, express_1.default)();
-const port = 3000;
+const port = process.env.PORT || 3000;
 const jsonBodyMiddleware = express_1.default.json();
 app.use(jsonBodyMiddleware);
 const db = {

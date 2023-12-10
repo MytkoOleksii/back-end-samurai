@@ -1,24 +1,87 @@
-
 /*const express = require('express')*/  // old
 import express from 'express'
 const app = express()
 const port = 3000
+
+const jsonBodyMiddleware = express.json()
+app.use(jsonBodyMiddleware)
+
+const db = {
+    courses: [
+        {id:1 , title: 'front-end'},
+        {id:2 , title: 'back-end'},
+        {id:3 , title: 'automation qa'},
+        {id:4 , title: 'devops'},
+    ],
+}
 
 app.get('/', (req, res) => {
     const a = 4 ;
     if(a > 5) {
         res.send('OK less 5')
     } else {
-        res.send('Hello World wtf !')
+        res.send({message:'hello World'})
     }
 })
-app.get('/users', (req, res) => {
-    res.send('Hello User!!!!!')
+app.get('/courses', (req, res) => {
+   let foundCourses = db.courses;
+   if(req.query.title) {
+       foundCourses = foundCourses.filter(c => c.title.indexOf(req.query.title as string) > -1) // поиск подстроки с помощью indexOf
+   }
+    res.json(foundCourses)
+})
+app.get('/courses/:id', (req, res) => {
+  let foundCourse =  db.courses.find(c => c.id === +req.params.id)
+
+    if(!foundCourse) {
+        res.sendStatus(404)
+        return;
+    }
+    res.json(foundCourse)
+})
+app.post('/courses', (req, res) => {
+   if(!req.body.title || req.body.title.trim().length < 1 ) {
+       res.sendStatus(400)
+       return;
+   }
+    let createdNewCourse = {
+        id: +(new Date()),
+        title: req.body.title
+    }
+    db.courses.push(createdNewCourse)
+    res.status(201).json(createdNewCourse)
 })
 app.post('/users', (req, res) => {
     res.send('We have created new user!')
+})
+app.delete('/courses/:id', (req, res) => {
+    db.courses =  db.courses.filter(c => c.id !== +req.params.id)
+    res.sendStatus(204)
+})
+app.put('/courses/:id', (req, res) => {
+    if(!req.body.title || req.body.title.trim().length < 1 ) {
+        res.sendStatus(400)
+        return;
+    }
+    let foundCourse =  db.courses.find(c => c.id === +req.params.id)
+
+    if(!foundCourse) {
+        res.sendStatus(404)
+        return;
+    }
+    foundCourse.title = req.body.title;
+    res.sendStatus(204).json(foundCourse)
 })
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
+
+/* method POST
+fetch('http://localhost:3000/courses', { method: 'post', body: JSON.stringify({title: 'Hi'}),
+    headers: {
+        'content-type': 'application/json'
+    }})
+.then(res => res.json())
+.then(json => console.log(json))
+ */

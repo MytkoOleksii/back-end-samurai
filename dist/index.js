@@ -5,13 +5,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 //const express = require('express')  // old
 const express_1 = __importDefault(require("express"));
-//import bodyParser from 'body-parser'
+const body_parser_1 = __importDefault(require("body-parser"));
 //import cors from 'cors'
 const app = (0, express_1.default)();
 //const corsMiddleware = cors();
 //app.use(corsMiddleware)
-//const jsonBodyMiddleware = bodyParser.json()
-//app.use(jsonBodyMiddleware)
+const parserMiddleware = (0, body_parser_1.default)();
+app.use(parserMiddleware);
 const jsonBodyMiddleware = express_1.default.json();
 app.use(jsonBodyMiddleware);
 const port = process.env.PORT || 3000;
@@ -29,12 +29,12 @@ app.get('/', (req, res) => {
         res.send('OK less 5');
     }
     else {
-        res.send({ message: 'hello World. 3' });
+        res.send({ message: 'hello World. Monday' });
     }
 });
 app.get('/courses', (req, res) => {
     let foundCourses = db.courses;
-    if (req.query.title) {
+    if (req.query.title) { // Поиск по queryParams "?name="
         foundCourses = foundCourses.filter(c => c.title.indexOf(req.query.title) > -1); // поиск подстроки с помощью indexOf
     }
     res.json(foundCourses);

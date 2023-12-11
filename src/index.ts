@@ -1,6 +1,6 @@
 //const express = require('express')  // old
 import express, {Request, Response} from 'express'
-//import bodyParser from 'body-parser'
+import bodyParser from 'body-parser'
 //import cors from 'cors'
 
 const app = express()
@@ -8,8 +8,8 @@ const app = express()
 //const corsMiddleware = cors();
 //app.use(corsMiddleware)
 
-//const jsonBodyMiddleware = bodyParser.json()
-//app.use(jsonBodyMiddleware)
+const parserMiddleware = bodyParser()
+app.use(parserMiddleware)
 
 const jsonBodyMiddleware = express.json()
 app.use(jsonBodyMiddleware)
@@ -31,12 +31,12 @@ app.get('/', (req, res) => {
     if(a > 5) {
         res.send('OK less 5')
     } else {
-        res.send({message:'hello World. 3'})
+        res.send({message:'hello World. Monday'})
     }
 })
 app.get('/courses', (req, res) => {
    let foundCourses = db.courses;
-   if(req.query.title) {
+   if(req.query.title) {// Поиск по queryParams "?name="
        foundCourses = foundCourses.filter(c => c.title.indexOf(req.query.title as string) > -1) // поиск подстроки с помощью indexOf
    }
     res.json(foundCourses)

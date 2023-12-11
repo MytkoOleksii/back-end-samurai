@@ -38,6 +38,7 @@ app.get('/', (req, res) => {
         //res.sendFile( `${process.cwd()}/pages/home.html` ); //3 process.cwd()возвращает абсолютный путь вашего проекта.
         res.sendFile("./pages/home.html", { root: "./" }); //4
     }
+
 })
 app.get('/courses', (req, res) => {
    let foundCourses = db.courses;

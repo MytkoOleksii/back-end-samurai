@@ -3,14 +3,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express = require('express'); // old
-//import express, {Request, Response} from 'express'
-const body_parser_1 = __importDefault(require("body-parser"));
-const cors_1 = __importDefault(require("cors"));
-const app = express();
-const corsMiddleware = (0, cors_1.default)();
-app.use(corsMiddleware);
-const jsonBodyMiddleware = body_parser_1.default.json();
+//const express = require('express')  // old
+const express_1 = __importDefault(require("express"));
+//import bodyParser from 'body-parser'
+//import cors from 'cors'
+const app = (0, express_1.default)();
+//const corsMiddleware = cors();
+//app.use(corsMiddleware)
+//const jsonBodyMiddleware = bodyParser.json()
+//app.use(jsonBodyMiddleware)
+const jsonBodyMiddleware = express_1.default.json();
 app.use(jsonBodyMiddleware);
 const port = process.env.PORT || 3000;
 const db = {

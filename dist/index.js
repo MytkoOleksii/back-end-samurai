@@ -29,7 +29,11 @@ app.get('/', (req, res) => {
         res.send('OK less 5');
     }
     else {
-        res.send({ message: 'hello World. Monday' });
+        //res.send({message:'hello World. Monday'}) // OLD
+        //res.sendFile( path.resolve('pages', 'home.html'))   //1
+        //res.sendFile( path.resolve('pages/home.html'));     //2
+        //res.sendFile( `${process.cwd()}/pages/home.html` ); //3 process.cwd()возвращает абсолютный путь вашего проекта.
+        res.sendFile("./pages/home.html", { root: "./" }); //4
     }
 });
 app.get('/courses', (req, res) => {

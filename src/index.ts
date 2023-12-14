@@ -2,14 +2,9 @@
 import express, {Request, Response} from 'express'
 import bodyParser from 'body-parser'
 import * as path from "path";
-import {RequestWithBody, RequestWithParams, RequestWithQuery} from "./type";
-import {QueryCoursesModel} from "./models/QueryCoursesModel";
-import {CourseViewModel} from "./models/CourseViewModel";
-import {CourseCreateModel} from "./models/CourseCreateModel";
-import {URLParamsCourseIdModel} from "./models/URLParamsCourseldModel";
 //import cors from 'cors'
 
-export const app = express()
+const app = express()
 
 //const corsMiddleware = cors();
 //app.use(corsMiddleware)
@@ -22,111 +17,82 @@ app.use(jsonBodyMiddleware)
 
 const port = process.env.PORT || 3000
 
-type CourseType = {
-    id: number
-    title: string
-    studentsCount: number
-}
-const db: { courses: CourseType[] } = {
+
+const db = {
     courses: [
-        {id: 1, title: 'front-end', studentsCount: 10},
-        {id: 2, title: 'back-end', studentsCount: 10},
-        {id: 3, title: 'automation qa', studentsCount: 10},
-        {id: 4, title: 'devops', studentsCount: 10},
+        {id:1 , title: 'front-end'},
+        {id:2 , title: 'back-end'},
+        {id:3 , title: 'automation qa'},
+        {id:4 , title: 'devops'},
     ],
 }
 
-const getCourseViewModal = (dbCourse: CourseType): CourseViewModel => {
-    return {
-        id: dbCourse.id,
-        title: dbCourse.title
-    }
-}
-
 app.get('/', (req, res) => {
-    const a = 4;
-    if (a > 5) {
+    const a = 4 ;
+    if(a > 5) {
         res.send('OK less 5')
     } else {
         //res.send({message:'hello World. Monday'}) // OLD
         //res.sendFile( path.resolve('pages', 'home.html'))   //1
         //res.sendFile( path.resolve('pages/home.html'));     //2
         //res.sendFile( `${process.cwd()}/pages/home.html` ); //3 process.cwd()возвращает абсолютный путь вашего проекта.
-        res.sendFile("./pages/home.html", {root: "./"}); //4
+        res.sendFile("./pages/home.html", { root: "./" }); //4
     }
 })
-app.get('/courses', (req: RequestWithQuery<QueryCoursesModel>, res: Response<CourseViewModel[]>) => {
-    let foundCourses = db.courses;
-    if (req.query.title) {// Поиск по queryParams "?name="
-        foundCourses = foundCourses.filter(c => c.title.indexOf(req.query.title as string) > -1) // поиск подстроки с помощью indexOf
-    }
-    res.json(foundCourses.map(getCourseViewModal)) //new
+app.get('/courses', (req, res) => {
+   let foundCourses = db.courses;
+   if(req.query.title) {// Поиск по queryParams "?name="
+       foundCourses = foundCourses.filter(c => c.title.indexOf(req.query.title as string) > -1) // поиск подстроки с помощью indexOf
+   }
+    res.json(foundCourses)
 })
-app.get('/courses/:id', (req: RequestWithParams<URLParamsCourseIdModel>, res: Response) => {
-    let foundCourse = db.courses.find(c => c.id === +req.params.id)
+app.get('/courses/:id', (req, res) => {
+  let foundCourse =  db.courses.find(c => c.id === +req.params.id)
 
-    if (!foundCourse) {
+    if(!foundCourse) {
         res.sendStatus(404)
         return;
     }
-    res.json(getCourseViewModal(foundCourse))
-    /* res.json({ //old
-         id: foundCourse.id,
-         title: foundCourse.title
-     })*/
+    res.json(foundCourse)
 })
-app.post('/courses', (req: RequestWithBody<CourseCreateModel>, res: Response<CourseViewModel>) => {
-    if (!req.body.title || req.body.title.trim().length < 1) {
-        res.sendStatus(400)
-        return;
-    }
+app.post('/courses', (req, res) => {
+   if(!req.body.title || req.body.title.trim().length < 1 ) {
+       res.sendStatus(400)
+       return;
+   }
     let createdNewCourse = {
         id: +(new Date()),
-        title: req.body.title,
-        studentsCount: 0,
+        title: req.body.title
     }
-    res.status(201).json(getCourseViewModal(createdNewCourse))
-    /* db.courses.push(createdNewCourse)// OLD
-     res.status(201).json({
-         id: createdNewCourse.id,
-         title: createdNewCourse.title
-     })*/
+    db.courses.push(createdNewCourse)
+    res.status(201).json(createdNewCourse)
 })
 app.post('/users', (req, res) => {
     res.send('We have created new user!')
 })
-app.delete('/courses/:id', (req: Request<{ id: string }>, res) => {
-    db.courses = db.courses.filter(c => c.id !== +req.params.id)
+app.delete('/courses/:id', (req, res) => {
+    db.courses =  db.courses.filter(c => c.id !== +req.params.id)
     res.sendStatus(204)
 })
-app.put('/courses/:id', (req: Request<{ id: string }, {}, { title: string }>, res) => {
-    if (!req.body.title || req.body.title.trim().length < 1) {
+app.put('/courses/:id', (req, res) => {
+    if(!req.body.title || req.body.title.trim().length < 1 ) {
         res.sendStatus(400)
         return;
     }
-    let foundCourse = db.courses.find(c => c.id === +req.params.id)
+    let foundCourse =  db.courses.find(c => c.id === +req.params.id)
 
-    if (!foundCourse) {
+    if(!foundCourse) {
         res.sendStatus(404)
         return;
     }
     foundCourse.title = req.body.title;
     res.sendStatus(204).json(foundCourse)
 })
-app.delete('/__test__/data', (req, res) => {
-    db.courses = [];
-    res.sendStatus(204)
-})
-
-app.delete('/__test__/data', (req, res) => {
-    db.courses = [];
-    res.sendStatus(204)
-})
-
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
+
 
 
 /* method POST

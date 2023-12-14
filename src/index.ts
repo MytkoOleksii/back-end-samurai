@@ -1,6 +1,7 @@
-//const express = require('express')  // old
-import express, {Request, Response} from 'express'
-import bodyParser from 'body-parser'
+//import express = require('express')  // old
+import express from 'express'
+
+//import bodyParser from 'body-parser'
 import * as path from "path";
 import {RequestWithBody, RequestWithParams, RequestWithQuery} from "./type";
 import {QueryCoursesModel} from "./models/QueryCoursesModel";
@@ -9,18 +10,21 @@ import {CourseCreateModel, CourseCreateModel} from "./models/CourseCreateModel";
 import {URLParamsCourseIdModel} from "./models/URLParamsCourseldModel";
 //import cors from 'cors'
 
-const app = express()
+
+export const app = express()
+ //app.use(express.json())
+
 
 //const corsMiddleware = cors();
 //app.use(corsMiddleware)
 
-const parserMiddleware = bodyParser()
-app.use(parserMiddleware)
+//const parserMiddleware = bodyParser()
+//app.use(parserMiddleware)
 
 const jsonBodyMiddleware = express.json()
 app.use(jsonBodyMiddleware)
 
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3005
 
 type CourseType = {
     id: number
@@ -111,6 +115,12 @@ app.delete('/__test__/data', (req,res) => {
     db.courses = [];
     res.sendStatus(204)
 })
+
+app.delete('/__test__/data', (req,res) => {
+    db.courses = [];
+    res.sendStatus(204)
+})
+
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)

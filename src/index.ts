@@ -6,6 +6,7 @@ import {RequestWithBody, RequestWithParams, RequestWithQuery} from "./type";
 import {QueryCoursesModel} from "./models/QueryCoursesModel";
 import {CourseViewModel} from "./models/CourseViewModel";
 import {CourseCreateModel, CourseCreateModel} from "./models/CourseCreateModel";
+import {URLParamsCourseIdModel} from "./models/URLParamsCourseldModel";
 //import cors from 'cors'
 
 export const app = express()
@@ -59,7 +60,7 @@ app.get('/courses', (req: RequestWithQuery<QueryCoursesModel>, res: Response<Cou
         }
     }))
 })
-app.get('/courses/:id', (req: RequestWithParams<{ id: string }>, res: Response) => {
+app.get('/courses/:id', (req: RequestWithParams<URLParamsCourseIdModel>, res: Response) => {
     let foundCourse = db.courses.find(c => c.id === +req.params.id)
 
     if (!foundCourse) {
@@ -104,6 +105,10 @@ app.put('/courses/:id', (req: Request<{ id: string }, {}, { title: string }>, re
     }
     foundCourse.title = req.body.title;
     res.sendStatus(204).json(foundCourse)
+})
+app.delete('/__test__/data', (req,res) => {
+    db.courses = [];
+    res.sendStatus(204)
 })
 
 app.delete('/__test__/data', (req,res) => {

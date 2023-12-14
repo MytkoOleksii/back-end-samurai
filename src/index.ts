@@ -85,6 +85,7 @@ app.post('/courses', (req: RequestWithBody<CourseCreateModel>, res: Response<Cou
         title: req.body.title,
         studentsCount: 0,
     }
+
      db.courses.push(createdNewCourse)
     res.status(201).json(getCourseViewModal(createdNewCourse))
      res.status(201).json({// OLD

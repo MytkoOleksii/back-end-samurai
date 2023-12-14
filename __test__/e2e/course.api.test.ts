@@ -7,7 +7,6 @@ describe('/course', () => {
     beforeAll(async () => {
         await request(app).delete('/__test__/data')
     })
-
     it('should  return 200', async () => {
         await request(app)
             .get('/courses')

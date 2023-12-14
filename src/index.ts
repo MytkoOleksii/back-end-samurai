@@ -4,7 +4,7 @@ import bodyParser from 'body-parser'
 import * as path from "path";
 //import cors from 'cors'
 
-const app = express()
+export const app = express()
 
 //const corsMiddleware = cors();
 //app.use(corsMiddleware)
@@ -88,6 +88,12 @@ app.put('/courses/:id', (req, res) => {
     foundCourse.title = req.body.title;
     res.sendStatus(204).json(foundCourse)
 })
+
+app.delete('/__test__/data', (req,res) => {
+    db.courses = [];
+    res.sendStatus(204)
+})
+
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)

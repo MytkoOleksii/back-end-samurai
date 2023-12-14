@@ -5,7 +5,7 @@ import * as path from "path";
 import {RequestWithBody, RequestWithParams, RequestWithQuery} from "./type";
 import {QueryCoursesModel} from "./models/QueryCoursesModel";
 import {CourseViewModel} from "./models/CourseViewModel";
-import {CourseCreateModel, CourseCreateModel} from "./models/CourseCreateModel";
+import {CourseCreateModel} from "./models/CourseCreateModel";
 import {URLParamsCourseIdModel} from "./models/URLParamsCourseldModel";
 //import cors from 'cors'
 
@@ -36,6 +36,13 @@ const db: { courses: CourseType[] } = {
     ],
 }
 
+const getCourseViewModal = (dbCourse: CourseType): CourseViewModel => {
+    return {
+        id: dbCourse.id,
+        title: dbCourse.title
+    }
+}
+
 app.get('/', (req, res) => {
     const a = 4;
     if (a > 5) {
@@ -53,12 +60,7 @@ app.get('/courses', (req: RequestWithQuery<QueryCoursesModel>, res: Response<Cou
     if (req.query.title) {// Поиск по queryParams "?name="
         foundCourses = foundCourses.filter(c => c.title.indexOf(req.query.title as string) > -1) // поиск подстроки с помощью indexOf
     }
-    res.json(foundCourses.map(dbCourse => {
-        return {
-            id: dbCourse.id,
-            title: dbCourse.title,
-        }
-    }))
+    res.json(foundCourses.map(getCourseViewModal)) //new
 })
 app.get('/courses/:id', (req: RequestWithParams<URLParamsCourseIdModel>, res: Response) => {
     let foundCourse = db.courses.find(c => c.id === +req.params.id)
@@ -67,10 +69,11 @@ app.get('/courses/:id', (req: RequestWithParams<URLParamsCourseIdModel>, res: Re
         res.sendStatus(404)
         return;
     }
-    res.json({
-        id: foundCourse.id,
-        title: foundCourse.title
-    })
+    res.json(getCourseViewModal(foundCourse))
+    /* res.json({ //old
+         id: foundCourse.id,
+         title: foundCourse.title
+     })*/
 })
 app.post('/courses', (req: RequestWithBody<CourseCreateModel>, res: Response<CourseViewModel>) => {
     if (!req.body.title || req.body.title.trim().length < 1) {
@@ -82,8 +85,12 @@ app.post('/courses', (req: RequestWithBody<CourseCreateModel>, res: Response<Cou
         title: req.body.title,
         studentsCount: 0,
     }
-    db.courses.push(createdNewCourse)
-    res.status(201).json(createdNewCourse)
+    res.status(201).json(getCourseViewModal(createdNewCourse))
+    /* db.courses.push(createdNewCourse)// OLD
+     res.status(201).json({
+         id: createdNewCourse.id,
+         title: createdNewCourse.title
+     })*/
 })
 app.post('/users', (req, res) => {
     res.send('We have created new user!')
@@ -106,12 +113,12 @@ app.put('/courses/:id', (req: Request<{ id: string }, {}, { title: string }>, re
     foundCourse.title = req.body.title;
     res.sendStatus(204).json(foundCourse)
 })
-app.delete('/__test__/data', (req,res) => {
+app.delete('/__test__/data', (req, res) => {
     db.courses = [];
     res.sendStatus(204)
 })
 
-app.delete('/__test__/data', (req,res) => {
+app.delete('/__test__/data', (req, res) => {
     db.courses = [];
     res.sendStatus(204)
 })

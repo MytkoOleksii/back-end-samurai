@@ -1,6 +1,7 @@
 import request from "supertest";
 import {app} from "../../src";
 import {response} from "express";
+import {CourseUpdateModel} from "../../src/models/CourseUpdateModel";
 
 describe('/course', () => {
     beforeAll(async () => {
@@ -35,10 +36,11 @@ describe('/course', () => {
 
         expect(createCourse).toEqual({
             id: expect.any(Number) ,
-            title: 'It-kamasutra'
+            title: 'It-kamasutra',
+
         })
 
-        await request(app)
+       await request(app)
             .get('/courses')
             .expect(200, [createCourse])
     });
@@ -60,14 +62,15 @@ describe('/course', () => {
             .expect(404)
     });
     it('should update correct', async function () {
+        const data: CourseUpdateModel = {title:'New course 777'}
         await request(app)
             .put(`/courses/` + createCourse.id)
-            .send({title:'New course 777'})
+            .send(data)
             .expect(204)
 
         await request(app)
             .get(`/courses/` + createCourse.id)
-            .expect(200, {...createCourse, title: 'New course 777'})
+            .expect(200, {...createCourse,title: data.title})
     });
 
     it('should delete course', async function () {

@@ -43,6 +43,7 @@ const getCourseViewModal = (dbCourse: CourseType): CourseViewModel => {
     }
 }
 
+
 app.get('/', (req, res) => {
     const a = 4;
     if (a > 5) {

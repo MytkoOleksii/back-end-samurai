@@ -13,6 +13,7 @@ export const app = express()
 //const corsMiddleware = cors();
 //app.use(corsMiddleware)
 
+
 const parserMiddleware = bodyParser()
 app.use(parserMiddleware)
 

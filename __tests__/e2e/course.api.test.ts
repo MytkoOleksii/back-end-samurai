@@ -1,5 +1,5 @@
 import request from "supertest";
-import {app} from "../../src";
+import {app} from "../../index";
 import {response} from "express";
 
 describe('/course', () => {

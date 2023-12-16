@@ -1,12 +1,11 @@
 //const express = require('express')  // old
 import express, {Request, Response} from 'express'
 import bodyParser from 'body-parser'
-import * as path from "path";
-import {RequestWithBody, RequestWithParams, RequestWithQuery} from "./type";
-import {QueryCoursesModel} from "./models/QueryCoursesModel";
-import {CourseViewModel} from "./models/CourseViewModel";
-import {CourseCreateModel} from "./models/CourseCreateModel";
-import {URLParamsCourseIdModel} from "./models/URLParamsCourseldModel";
+import {RequestWithBody, RequestWithParams, RequestWithQuery} from "./src/type";
+import {QueryCoursesModel} from "./src/models/QueryCoursesModel";
+import {CourseViewModel} from "./src/models/CourseViewModel";
+import {CourseCreateModel} from "./src/models/CourseCreateModel";
+import {URLParamsCourseIdModel} from "./src/models/URLParamsCourseldModel";
 //import cors from 'cors'
 
 export const app = express()
@@ -43,8 +42,8 @@ const getCourseViewModal = (dbCourse: CourseType): CourseViewModel => {
     }
 }
 
-//let path = require('path') // 5
-//let catalog = 'pages'     // 5
+let path = require('path') // 5/6
+let catalog = 'pages'     // 5/6
 
 //app.use('/', express.static(path.join(__dirname,catalog))); // 6
 
@@ -57,8 +56,8 @@ app.get('/', (req, res) => {
         //res.sendFile( path.resolve('pages', 'home.html'))   //1
         //res.sendFile( path.resolve('pages/home.html'));     //2
         //res.sendFile( `${process.cwd()}/pages/home.html` ); //3 process.cwd()возвращает абсолютный путь вашего проекта.
-        res.sendFile("./pages/about.html", {root: "./"}); //4
-      //  res.sendFile(path.join(__dirname,catalog, 'about.html')) //5 1)Добавить let path =require('path') 2)вместо "catalog" написать папки расположения файла 3)Указать файл
+        res.sendFile("./pages/home.html", {root: "./"}); //4
+        //res.sendFile(path.join(__dirname,catalog,'about.html')) //5 1)Добавить let path =require('path') 2)вместо "catalog" написать папки расположения файла 3)Указать файл
     }
 })
 app.get('/courses', (req: RequestWithQuery<QueryCoursesModel>, res: Response<CourseViewModel[]>) => {

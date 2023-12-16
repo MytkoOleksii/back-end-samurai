@@ -1,11 +1,11 @@
 //const express = require('express')  // old
 import express, {Request, Response} from 'express'
 import bodyParser from 'body-parser'
-import {RequestWithBody, RequestWithParams, RequestWithQuery} from "./src/type";
-import {QueryCoursesModel} from "./src/models/QueryCoursesModel";
-import {CourseViewModel} from "./src/models/CourseViewModel";
-import {CourseCreateModel} from "./src/models/CourseCreateModel";
-import {URLParamsCourseIdModel} from "./src/models/URLParamsCourseldModel";
+import {RequestWithBody, RequestWithParams, RequestWithQuery} from "./type";
+import {QueryCoursesModel} from "./models/QueryCoursesModel";
+import {CourseViewModel} from "./models/CourseViewModel";
+import {CourseCreateModel} from "./models/CourseCreateModel";
+import {URLParamsCourseIdModel} from "./models/URLParamsCourseldModel";
 //import cors from 'cors'
 
 export const app = express()

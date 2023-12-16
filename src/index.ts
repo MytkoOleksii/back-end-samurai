@@ -44,8 +44,6 @@ const getCourseViewModal = (dbCourse: CourseType): CourseViewModel => {
 
 //let path = require('path') // 5/6
 //let catalog = '../pages'     // 5/6
-
-
 //app.use('/', express.static(path.join(__dirname,catalog))); // 6
 
 app.get('/', (req, res) => {
@@ -61,6 +59,7 @@ app.get('/', (req, res) => {
         //res.sendFile(path.join(__dirname,catalog,'home.html')) //5 1)Добавить let path =require('path') 2)вместо "catalog" написать папки расположения файла 3)Указать файл
     }
 })
+
 app.get('/courses', (req: RequestWithQuery<QueryCoursesModel>, res: Response<CourseViewModel[]>) => {
     let foundCourses = db.courses;
     if (req.query.title) {// Поиск по queryParams "?name="

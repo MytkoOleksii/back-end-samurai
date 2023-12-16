@@ -42,8 +42,8 @@ const getCourseViewModal = (dbCourse: CourseType): CourseViewModel => {
     }
 }
 
-let path = require('path') // 5/6
-let catalog = 'pages'     // 5/6
+//let path = require('path') // 5/6
+//let catalog = '../pages'     // 5/6
 
 //app.use('/', express.static(path.join(__dirname,catalog))); // 6
 
@@ -57,7 +57,7 @@ app.get('/', (req, res) => {
         //res.sendFile( path.resolve('pages/home.html'));     //2
         //res.sendFile( `${process.cwd()}/pages/home.html` ); //3 process.cwd()возвращает абсолютный путь вашего проекта.
         res.sendFile("./pages/home.html", {root: "./"}); //4
-        //res.sendFile(path.join(__dirname,catalog,'about.html')) //5 1)Добавить let path =require('path') 2)вместо "catalog" написать папки расположения файла 3)Указать файл
+        //res.sendFile(path.join(__dirname,catalog,'home.html')) //5 1)Добавить let path =require('path') 2)вместо "catalog" написать папки расположения файла 3)Указать файл
     }
 })
 app.get('/courses', (req: RequestWithQuery<QueryCoursesModel>, res: Response<CourseViewModel[]>) => {

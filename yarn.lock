@@ -624,11 +624,6 @@
   dependencies:
     "@babel/types" "^7.20.7"
 
-"@types/bluebird@*":
-  version "3.5.42"
-  resolved "https://registry.npmjs.org/@types/bluebird/-/bluebird-3.5.42.tgz"
-  integrity sha512-Jhy+MWRlro6UjVi578V/4ZGNfeCOcNCp0YaFNIUGFKlImowqwb1O/22wDVk3FDGMLqxdpOV3qQHD5fPEH4hK6A==
-
 "@types/body-parser@*":
   version "1.19.5"
   resolved "https://registry.npmjs.org/@types/body-parser/-/body-parser-1.19.5.tgz"
@@ -772,16 +767,7 @@
     "@types/cookiejar" "*"
     "@types/node" "*"
 
-"@types/supertest-as-promised@^2.0.41":
-  version "2.0.41"
-  resolved "https://registry.npmjs.org/@types/supertest-as-promised/-/supertest-as-promised-2.0.41.tgz"
-  integrity sha512-+DyhtVGOMA+i621aBH/anGC5nM4wVkjvfpKyR3zvUoY89FsnaH74HhnrrTRrN/ILc5BaxqScMHtrrdVGk60l+w==
-  dependencies:
-    "@types/bluebird" "*"
-    "@types/superagent" "*"
-    "@types/supertest" "*"
-
-"@types/supertest@*", "@types/supertest@^2.0.16":
+"@types/supertest@^2.0.16":
   version "2.0.16"
   resolved "https://registry.yarnpkg.com/@types/supertest/-/supertest-2.0.16.tgz#7a1294edebecb960d957bbe9b26002a2b7f21cd7"
   integrity sha512-6c2ogktZ06tr2ENoZivgm7YnprnhYE4ZoXGMY+oA7IuAf17M8FWvujXZGmxLv8y0PTyts4x5A+erSwVUFA8XSg==
@@ -2360,7 +2346,7 @@ node-releases@^2.0.14:
 
 nodemon@^3.0.2:
   version "3.0.2"
-  resolved "https://registry.npmjs.org/nodemon/-/nodemon-3.0.2.tgz"
+  resolved "https://registry.yarnpkg.com/nodemon/-/nodemon-3.0.2.tgz#222dd0de79fc7b7b3eedba422d2b9e5fc678621e"
   integrity sha512-9qIN2LNTrEzpOPBaWHTm4Asy1LxXLSickZStAQ4IZe7zsoIpD/A7LWxhZV3t4Zu352uBcqVnRsDXSMR2Sc3lTA==
   dependencies:
     chokidar "^3.5.2"

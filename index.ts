@@ -45,6 +45,7 @@ const getCourseViewModal = (dbCourse: CourseType): CourseViewModel => {
 //let path = require('path') // 5/6
 //let catalog = '../pages'     // 5/6
 
+
 //app.use('/', express.static(path.join(__dirname,catalog))); // 6
 
 app.get('/', (req, res) => {

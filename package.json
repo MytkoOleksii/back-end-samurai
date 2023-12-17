@@ -10,7 +10,7 @@
     "dev": "nodemon .\\dist\\index.js",
     "build": "tsc",
     "start": "node dist/index.js",
-    "test": "jest"
+    "test": "jest --watchAll --no-cache --detectOpenHandles"
   },
   "dependencies": {
     "@types/jest": "^29.5.11",

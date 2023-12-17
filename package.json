@@ -1,13 +1,13 @@
 {
   "name": "Server",
   "version": "1.0.0",
-  "main": "src/index.ts",
+  "main": "index.ts",
   "repository": "https://github.com/MytkoOleksii/back-end-samurai.git",
   "author": "Oleksii Mytko <mytko.oleksii@gmail.com>",
   "license": "MIT",
   "scripts": {
     "watch": "tsc -w",
-    "dev": "nodemon .\\dist\\src\\index.js",
+    "dev": "nodemon .\\dist\\index.js",
     "build": "tsc",
     "start": "node dist/index.js",
     "test": "jest"

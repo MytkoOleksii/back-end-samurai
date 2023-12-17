@@ -1,8 +1,6 @@
 import request from "supertest";
 import {app} from "../../pages";
 
-import {response} from "express";
-
 describe('/course', () => {
     beforeAll(async () => {
         await request(app).delete('/__test__/data')

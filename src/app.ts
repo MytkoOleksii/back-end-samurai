@@ -1,10 +1,6 @@
-import express, {Request, Response} from "express";
+//const express = require('express')  // old
+import express from "express";
 import bodyParser from "body-parser";
-import {CourseViewModel} from "./models/CourseViewModel";
-import {RequestWithBody, RequestWithParams, RequestWithQuery} from "./type";
-import {QueryCoursesModel} from "./models/QueryCoursesModel";
-import {URLParamsCourseIdModel} from "./models/URLParamsCourseldModel";
-import {CourseCreateModel} from "./models/CourseCreateModel";
 import {getCoursesRouter} from "./routes/courses";
 import {db} from "./db/db";
 import {getTestRouter} from "./routes/tests";

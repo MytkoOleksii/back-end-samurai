@@ -5,7 +5,7 @@ import * as path from "path";
 import {RequestWithBody, RequestWithParams, RequestWithQuery} from "./type";
 import {QueryCoursesModel} from "./models/QueryCoursesModel";
 import {CourseViewModel} from "./models/CourseViewModel";
-import {CourseCreateModel, CourseCreateModel} from "./models/CourseCreateModel";
+import {CourseCreateModel} from "./models/CourseCreateModel";
 import {URLParamsCourseIdModel} from "./models/URLParamsCourseldModel";
 //import cors from 'cors'
 

@@ -43,7 +43,6 @@ app.post('/users', (req, res) => {
     res.send('We have created new user!')
 })
 
-
 app.use('/courses', getCoursesRouter(db))
 app.use('/__test__/',getTestRouter(db) )
 

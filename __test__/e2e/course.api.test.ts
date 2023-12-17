@@ -1,6 +1,5 @@
 import request from "supertest";
 import {app} from "../../pages";
-import {response} from "express";
 import {CourseUpdateModel} from "../../src/models/CourseUpdateModel";
 
 describe('/course', () => {

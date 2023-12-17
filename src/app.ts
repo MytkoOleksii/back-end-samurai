@@ -1,6 +1,10 @@
-//const express = require('express')  // old
-import express from "express";
+import express, {Request, Response} from "express";
 import bodyParser from "body-parser";
+import {CourseViewModel} from "./models/CourseViewModel";
+import {RequestWithBody, RequestWithParams, RequestWithQuery} from "./type";
+import {QueryCoursesModel} from "./models/QueryCoursesModel";
+import {URLParamsCourseIdModel} from "./models/URLParamsCourseldModel";
+import {CourseCreateModel} from "./models/CourseCreateModel";
 import {getCoursesRouter} from "./routes/courses";
 import {db} from "./db/db";
 import {getTestRouter} from "./routes/tests";
@@ -38,6 +42,7 @@ app.get('/users', (req, res) => {
 app.post('/users', (req, res) => {
     res.send('We have created new user!')
 })
+
 
 app.use('/courses', getCoursesRouter(db))
 app.use('/__test__/',getTestRouter(db) )

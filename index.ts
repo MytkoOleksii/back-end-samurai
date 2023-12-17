@@ -8,8 +8,6 @@ import {CourseCreateModel} from "./src/models/CourseCreateModel";
 import {URLParamsCourseIdModel} from "./src/models/URLParamsCourseldModel";
 //import cors from 'cors'
 
-
-
 export const app = express()
 
 //const corsMiddleware = cors();

@@ -8,8 +8,6 @@ import {productsRouter} from "./routes/productes";
 export const app = express()
 export const parserMiddleware = bodyParser()
 export const jsonBodyMiddleware = express.json()
-//const corsMiddleware = cors();
-//app.use(corsMiddleware)
 
 app.use(parserMiddleware)
 app.use(jsonBodyMiddleware)
@@ -30,13 +28,6 @@ app.get('/', (req, res) => {
         res.sendFile("./pages/home.html", {root: "./"}); //4
         //res.sendFile(path.join(__dirname,catalog,'home.html')) //5 1)Добавить let path =require('path') 2)вместо "catalog" написать папки расположения файла 3)Указать файл
     }
-})
-
-app.get('/users', (req, res) => {
-    res.send('Список пользователей: ')
-})
-app.post('/users', (req, res) => {
-    res.send('We have created new user!')
 })
 
 

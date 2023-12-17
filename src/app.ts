@@ -1,13 +1,9 @@
-import express, {Request, Response} from "express";
+import express from "express";
 import bodyParser from "body-parser";
-import {CourseViewModel} from "./models/CourseViewModel";
-import {RequestWithBody, RequestWithParams, RequestWithQuery} from "./type";
-import {QueryCoursesModel} from "./models/QueryCoursesModel";
-import {URLParamsCourseIdModel} from "./models/URLParamsCourseldModel";
-import {CourseCreateModel} from "./models/CourseCreateModel";
 import {getCoursesRouter} from "./routes/courses";
 import {db} from "./db/db";
 import {getTestRouter} from "./routes/tests";
+import {productsRouter} from "./routes/productes";
 
 export const app = express()
 export const parserMiddleware = bodyParser()
@@ -46,6 +42,7 @@ app.post('/users', (req, res) => {
 
 app.use('/courses', getCoursesRouter(db))
 app.use('/__test__/',getTestRouter(db) )
+app.use('/products/', productsRouter)
 
 /*  // OLD
 

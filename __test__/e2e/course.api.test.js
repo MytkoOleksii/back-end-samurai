@@ -13,25 +13,25 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const supertest_1 = __importDefault(require("supertest"));
-const src_1 = require("../../src");
+const pages_1 = require("../../pages");
 describe('/course', () => {
     beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
-        yield (0, supertest_1.default)(src_1.app).delete('/__test__/data');
+        yield (0, supertest_1.default)(pages_1.app).delete('/__test__/data');
     }));
     it('should  return 200', () => __awaiter(void 0, void 0, void 0, function* () {
-        yield (0, supertest_1.default)(src_1.app)
+        yield (0, supertest_1.default)(pages_1.app)
             .get('/courses')
             .expect(200, []);
     }));
     it('should  return 404', function () {
         return __awaiter(this, void 0, void 0, function* () {
-            yield (0, supertest_1.default)(src_1.app).get('/courses/777')
+            yield (0, supertest_1.default)(pages_1.app).get('/courses/777')
                 .expect(404);
         });
     });
     it('should not  create', function () {
         return __awaiter(this, void 0, void 0, function* () {
-            yield (0, supertest_1.default)(src_1.app)
+            yield (0, supertest_1.default)(pages_1.app)
                 .post('/courses')
                 .send({ title: '' })
                 .expect(400);
@@ -40,7 +40,7 @@ describe('/course', () => {
     let createCourse = null;
     it('should create', function () {
         return __awaiter(this, void 0, void 0, function* () {
-            const createResponse = yield (0, supertest_1.default)(src_1.app)
+            const createResponse = yield (0, supertest_1.default)(pages_1.app)
                 .post('/courses')
                 .send({ title: 'It-kamasutra' })
                 .expect(201);
@@ -49,25 +49,25 @@ describe('/course', () => {
                 id: expect.any(Number),
                 title: 'It-kamasutra',
             });
-            yield (0, supertest_1.default)(src_1.app)
+            yield (0, supertest_1.default)(pages_1.app)
                 .get('/courses')
                 .expect(200, [createCourse]);
         });
     });
     it('should update not exist', function () {
         return __awaiter(this, void 0, void 0, function* () {
-            yield (0, supertest_1.default)(src_1.app)
+            yield (0, supertest_1.default)(pages_1.app)
                 .put(`/courses/` + createCourse.id)
                 .send({ title: '' })
                 .expect(400);
-            yield (0, supertest_1.default)(src_1.app)
+            yield (0, supertest_1.default)(pages_1.app)
                 .get(`/courses/` + createCourse.id)
                 .expect(200, createCourse);
         });
     });
     it(`shouldn't update`, function () {
         return __awaiter(this, void 0, void 0, function* () {
-            yield (0, supertest_1.default)(src_1.app)
+            yield (0, supertest_1.default)(pages_1.app)
                 .put(`/courses/` + 2)
                 .send({ title: 'good' })
                 .expect(404);
@@ -76,18 +76,18 @@ describe('/course', () => {
     it('should update correct', function () {
         return __awaiter(this, void 0, void 0, function* () {
             const data = { title: 'New course 777' };
-            yield (0, supertest_1.default)(src_1.app)
+            yield (0, supertest_1.default)(pages_1.app)
                 .put(`/courses/` + createCourse.id)
                 .send(data)
                 .expect(204);
-            yield (0, supertest_1.default)(src_1.app)
+            yield (0, supertest_1.default)(pages_1.app)
                 .get(`/courses/` + createCourse.id)
                 .expect(200, Object.assign(Object.assign({}, createCourse), { title: data.title }));
         });
     });
     it('should delete course', function () {
         return __awaiter(this, void 0, void 0, function* () {
-            yield (0, supertest_1.default)(src_1.app)
+            yield (0, supertest_1.default)(pages_1.app)
                 .delete('/courses/' + createCourse.id)
                 .expect(204);
         });

@@ -1,4 +1,5 @@
 import request from "supertest";
+import {app} from "../../pages";
 import {app} from "../../src";
 import {response} from "express";
 

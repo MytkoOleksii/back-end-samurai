@@ -1,4 +1,5 @@
 import request from "supertest";
+import {app} from "../../pages";
 import {app} from "../../src";
 import {response} from "express";
 import {CourseUpdateModel} from "../../src/models/CourseUpdateModel";
@@ -16,13 +17,11 @@ describe('/course', () => {
         await request(app).get('/courses/777')
             .expect(404)
     });
-
     it('should not  create', async function () {
         await request(app)
             .post('/courses')
             .send({title: ''})
             .expect(400)
-
     });
     let createCourse: any = null;
     it('should create', async function () {
@@ -36,14 +35,11 @@ describe('/course', () => {
         expect(createCourse).toEqual({
             id: expect.any(Number) ,
             title: 'It-kamasutra',
-
         })
-
        await request(app)
             .get('/courses')
             .expect(200, [createCourse])
     });
-
     it('should update not exist', async function () {
         await request(app)
             .put(`/courses/` + createCourse.id)

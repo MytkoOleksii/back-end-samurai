@@ -16,7 +16,7 @@ export const productsRepository = {
     findProductById(id: number) {
         return products.find(p => p.id === id)
     },
-    updateProduct(id: number, title: string) {
+    updateProduct(id: number | string, title: string) {
         let product = products.find(p => p.id === id)
         if (product) {
             product.title = title

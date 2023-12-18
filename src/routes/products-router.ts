@@ -1,15 +1,27 @@
-import express, {Response} from "express";
+import express, {Request, Response} from "express";
 import {productsRepository} from "../repositories/product-repositories";
-
+import {body} from "express-validator";
+import {inputValidationMiddleware} from "../middlewares/input-validation-middleware";
 
 export const productsRouter = express.Router()
+
+const titleValidation = body('title').trim().isLength({min:3,max:10})
 
 productsRouter.route('/')
     .get((req, res: Response) => {
         const foundProducts = productsRepository.findProducts(req.query.title?.toString())
         res.send(foundProducts)
     })
-    .post((req, res: Response) => {
+    .post( titleValidation,inputValidationMiddleware,
+        /* //OLD / вместо этого titleValidation
+            .post( body('title').trim().isLength({min:3,max:10}),
+        */
+        (req: Request, res: Response) => {
+        /* // OLD / вместо етого inputValidationMiddleware
+        const errors = validationResult(req)// Проверка самого валидатора
+        if(!errors.isEmpty()) {
+            return res.status(400).json({errors:errors.array()})
+        }*/
         const newProduct = productsRepository.createProduct(req.body.title)
         res.status(201).send(newProduct)
     })
@@ -22,7 +34,9 @@ productsRouter.route('/:id')
             res.send(404)
         }
     })
-    .put((req, res: Response) => {
+    .put(titleValidation, inputValidationMiddleware,
+        (req, res: Response) => {
+
         let isUpdated = productsRepository.updateProduct(req.params.id, req.body.title)
         if (isUpdated) {
             const product = productsRepository.findProductById(+req.params.id)

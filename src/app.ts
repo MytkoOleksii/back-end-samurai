@@ -3,7 +3,7 @@ import bodyParser from "body-parser";
 import {getCoursesRouter} from "./routes/courses";
 import {db} from "./db/db";
 import {getTestRouter} from "./routes/tests";
-import {productsRouter} from "./routes/productes";
+import {productsRouter} from "./routes/products-router";
 
 export const app = express()
 export const parserMiddleware = bodyParser()

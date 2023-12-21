@@ -35,6 +35,8 @@ app.use('/courses', getCoursesRouter(db))
 app.use('/__test__/',getTestRouter(db) )
 app.use('/products/', productsRouter )
 
+
+
 /*  // OLD
 
 const coursesRouter = getCoursesRouter(db)

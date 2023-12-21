@@ -1,5 +1,5 @@
 import express, {Request, Response} from "express";
-import {productsRepository} from "../repositories/product-repositories";
+import {productsRepository} from "../repositories/product-in-memory-repositories";
 import {body} from "express-validator";
 import {inputValidationMiddleware} from "../middlewares/input-validation-middleware";
 

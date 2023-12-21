@@ -8,26 +8,26 @@ export const productsRouter = express.Router()
 const titleValidation = body('title').trim().isLength({min:3,max:10})
 
 productsRouter.route('/')
-    .get((req, res: Response) => {
-        const foundProducts = productsRepository.findProducts(req.query.title?.toString())
+    .get(async (req, res: Response) => {
+        const foundProducts: ProductType[] = await productsRepository.findProducts(req.query.title?.toString())
         res.send(foundProducts)
     })
     .post( titleValidation,inputValidationMiddleware,
         /* //OLD / вместо этого titleValidation
             .post( body('title').trim().isLength({min:3,max:10}),
         */
-        (req: Request, res: Response) => {
+      async  (req: Request, res: Response) => {
         /* // OLD / вместо етого inputValidationMiddleware
         const errors = validationResult(req)// Проверка самого валидатора
         if(!errors.isEmpty()) {
             return res.status(400).json({errors:errors.array()})
         }*/
-        const newProduct = productsRepository.createProduct(req.body.title)
+        const newProduct: ProductType[] = await productsRepository.createProduct(req.body.title)
         res.status(201).send(newProduct)
     })
 productsRouter.route('/:id')
-    .get((req, res: Response) => {
-        let product = productsRepository.findProductById(+req.params.id)
+    .get( (req, res: Response) => {
+        let product =  productsRepository.findProductById(+req.params.id)
         if (product) {
             res.send(product)
         } else {
@@ -35,9 +35,9 @@ productsRouter.route('/:id')
         }
     })
     .put(titleValidation, inputValidationMiddleware,
-        (req, res: Response) => {
+       async (req, res: Response) => {
 
-        let isUpdated = productsRepository.updateProduct(req.params.id, req.body.title)
+        let isUpdated = await productsRepository.updateProduct(req.params.id, req.body.title)
         if (isUpdated) {
             const product = productsRepository.findProductById(+req.params.id)
             res.send(product)

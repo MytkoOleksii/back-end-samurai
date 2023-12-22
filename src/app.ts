@@ -1,9 +1,10 @@
 import express from "express";
 import bodyParser from "body-parser";
 import {getCoursesRouter} from "./routes/courses";
-import {db} from "./db/db";
+
 import {getTestRouter} from "./routes/tests";
 import {productsRouter} from "./routes/products-router";
+import {db} from "./db/db";
 
 export const app = express()
 export const parserMiddleware = bodyParser()
@@ -33,7 +34,7 @@ app.get('/', (req, res) => {
 
 app.use('/courses', getCoursesRouter(db))
 app.use('/__test__/',getTestRouter(db) )
-app.use('/products/', productsRouter )
+app.use('/products', productsRouter )
 
 
 

@@ -4,7 +4,7 @@ import express, {Request, Response} from "express";
 import {CourseViewModel} from "../models/CourseViewModel";
 import {URLParamsCourseIdModel} from "../models/URLParamsCourseldModel";
 import {CourseCreateModel} from "../models/CourseCreateModel";
-import {DBType} from "../db/db";
+/*import {DBType} from "../db/db";*/
 
 export type CourseType = {
     id: number
@@ -18,7 +18,7 @@ export const getCourseViewModal = (dbCourse: CourseType): CourseViewModel => {
     }
 }
 
-export const getCoursesRouter = (db: DBType) => {
+export const getCoursesRouter = (db) => {
     const coursesRouter = express.Router() // Используется вместо app
 
     coursesRouter.route('/')

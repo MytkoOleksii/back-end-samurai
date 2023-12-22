@@ -2,16 +2,19 @@ import {CourseType} from "../routes/courses";
 import {MongoClient} from "mongodb";
 
 export type DBType = { courses: CourseType[]}
-/*
-//export const db: DBType = {
+
+/*export const db: DBType = {
     courses: [
         {id: 1, title: 'front-end', studentsCount: 10},
         {id: 2, title: 'back-end', studentsCount: 10},
         {id: 3, title: 'automation qa', studentsCount: 10},
         {id: 4, title: 'devops', studentsCount: 10},
     ],
-}
-*/
+}*/
+
+// client.db('loarning').collection<ProductType>('product')  // whole adress
+export const db = client.db('loarning')
+export let productsCollectionDb = db.collection('product')
 
 const mongoUrl = process.env.mongoURL || "mongodb+srv://Admin:9Pw5eYCxjiAf7H3S@cluster0.dy9y5gg.mongodb.net/?retryWrites=true&w=majority"
 export const client = new MongoClient(mongoUrl)

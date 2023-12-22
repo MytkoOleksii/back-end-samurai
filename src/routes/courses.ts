@@ -18,14 +18,14 @@ export const getCourseViewModal = (dbCourse: CourseType): CourseViewModel => {
     }
 }
 
-export const getCoursesRouter = (db) => {
+export const getCoursesRouter = (db: any) => {
     const coursesRouter = express.Router() // Используется вместо app
 
     coursesRouter.route('/')
         .get((req: RequestWithQuery<QueryCoursesModel>, res: Response<CourseViewModel[]>) => {
             let foundCourses = db.courses;
             if (req.query.title) {// Поиск по queryParams "?name="
-                foundCourses = foundCourses.filter(c => c.title.indexOf(req.query.title as string) > -1) // поиск подстроки с помощью indexOf
+                foundCourses = foundCourses.filter((c: any) => c.title.indexOf(req.query.title as string) > -1) // поиск подстроки с помощью indexOf
             }
             res.json(foundCourses.map(getCourseViewModal)) //new
         })
@@ -49,7 +49,7 @@ export const getCoursesRouter = (db) => {
         })
     coursesRouter.route('/:id')
         .get( (req: RequestWithParams<URLParamsCourseIdModel>, res: Response) => {
-            let foundCourse = db.courses.find(c => c.id === +req.params.id)
+            let foundCourse = db.courses.find((c:any) => c.id === +req.params.id)
 
             if (!foundCourse) {
                 res.sendStatus(404)
@@ -66,7 +66,7 @@ export const getCoursesRouter = (db) => {
                 res.sendStatus(400)
                 return;
             }
-            let foundCourse = db.courses.find(c => c.id === +req.params.id)
+            let foundCourse = db.courses.find((c: any) => c.id === +req.params.id)
 
             if (!foundCourse) {
                 res.sendStatus(404)
@@ -76,7 +76,7 @@ export const getCoursesRouter = (db) => {
             res.sendStatus(204).json(foundCourse)
         })
         .delete( (req: Request<{ id: string }>, res: any) => {
-            db.courses = db.courses.filter(c => c.id !== +req.params.id)
+            db.courses = db.courses.filter((c:any )=> c.id !== +req.params.id)
             res.sendStatus(204)
         })
     return coursesRouter

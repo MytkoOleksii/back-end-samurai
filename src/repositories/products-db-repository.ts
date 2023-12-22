@@ -7,7 +7,7 @@ export type ProductType = {
     title: string
 }
 export const productsRepository = {
-    async findProducts(title: string | null | undefined): Promise<WithId<Document>[]> {
+    async findProducts(title: string | null | undefined): Promise<any> {
 const filter:any = {}
         if (title) {
             filter.title = {$regex: title}

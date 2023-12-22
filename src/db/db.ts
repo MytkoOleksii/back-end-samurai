@@ -12,12 +12,14 @@ export type DBType = { courses: CourseType[]}
     ],
 }*/
 
+const mongoUrl = process.env.mongoURL || "mongodb+srv://Admin:9Pw5eYCxjiAf7H3S@cluster0.dy9y5gg.mongodb.net/?retryWrites=true&w=majority"
+export const client = new MongoClient(mongoUrl)
 // client.db('loarning').collection<ProductType>('product')  // whole adress
 export const db = client.db('loarning')
 export let productsCollectionDb = db.collection('product')
 
-const mongoUrl = process.env.mongoURL || "mongodb+srv://Admin:9Pw5eYCxjiAf7H3S@cluster0.dy9y5gg.mongodb.net/?retryWrites=true&w=majority"
-export const client = new MongoClient(mongoUrl)
+
+
 export async function runDb() {
     try{
         await client.connect()// Connect the client to server

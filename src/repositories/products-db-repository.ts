@@ -3,7 +3,7 @@ import {WithId} from "mongodb";
 
 const __products: ProductType[] = [{id: 1, title: 'tomato'}, {id: 2, title: 'orange'}]
 export type ProductType = {
-    id: number
+    id: number | string
     title: string
 }
 export const productsRepository = {
@@ -11,13 +11,13 @@ export const productsRepository = {
 const filter:any = {}
         if (title) {
             filter.title = {$regex: title}
-        }
-/*// old
+
+// old
             return  productsCollectionDb.find({title: {$regex: title}}).toArray()
         } else {
             return productsCollectionDb.find({}).toArray()
-        }*/
-        return productsCollectionDb.find({filter}).toArray()
+        }
+     /*   return productsCollectionDb.find({filter}).toArray()*/
     },
     async createProduct(title: string): Promise<ProductType> {
         const newProduct = {id: +(new Date()), title: title}

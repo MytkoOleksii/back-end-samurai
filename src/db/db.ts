@@ -1,5 +1,6 @@
 import {CourseType} from "../routes/courses";
 import {MongoClient} from "mongodb";
+import {ProductType} from "../repositories/products-db-repository";
 
 export type DBType = { courses: CourseType[]}
 
@@ -18,7 +19,7 @@ export const client = new MongoClient(mongoUrl)
 export const db = client.db('loarning')
 export let productsCollectionDb = db.collection('product')
 
-
+//export let productsCollectionDb = client.db('loarning').collection<ProductType>('product')
 
 export async function runDb() {
     try{

@@ -28,7 +28,6 @@ export async function runDb() {
         await client.db('products').command({ping:1})
         console.log("successfull")
     } catch {
-        console.log("Can't connection")
          client.close();
     }
 }

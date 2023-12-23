@@ -21,7 +21,7 @@ export let productsCollectionDb = db.collection('product')
 
 //export let productsCollectionDb = client.db('loarning').collection<ProductType>('product')
 
-export async function runDb() {
+export const runDb = async () => {
     try{
         await client.connect()// Connect the client to server
         // Establish and verify connection

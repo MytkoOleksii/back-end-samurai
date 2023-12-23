@@ -22,12 +22,13 @@ export let productsCollectionDb = db.collection('product')
 //export let productsCollectionDb = client.db('loarning').collection<ProductType>('product')
 
 export const runDb = async () => {
-
+    try{
         await client.connect()// Connect the client to server
         // Establish and verify connection
         await client.db('products').command({ping:1})
         console.log("successfull")
-
-         client.close();
-
+    } catch {
+        console.log('Проблема')
+         await client.close();
+    }
 }

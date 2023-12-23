@@ -8,16 +8,17 @@ export type ProductType = {
 }
 export const productsRepository = {
     async findProducts(title: string | null | undefined): Promise<any> {
-const filter:any = {}
+        const filter: any = {}
         if (title) {
             filter.title = {$regex: title}
-
-// old
-            return  productsCollectionDb.find({title: {$regex: title}}).toArray()
+            // OLD 1
+            /*   return productsCollectionDb.find({filter}).toArray()*/
+            // OLD 2
+            /* return  productsCollectionDb.find({title: {$regex: title}}).toArray() // з бази данних*/
         } else {
             return productsCollectionDb.find({}).toArray()
         }
-     /*   return productsCollectionDb.find({filter}).toArray()*/
+
     },
     async createProduct(title: string): Promise<ProductType> {
         const newProduct = {id: +(new Date()), title: title}
@@ -25,7 +26,7 @@ const filter:any = {}
         return newProduct
     },
     async findProductById(id: number): Promise<ProductType | null | any> {
-        let product = await productsCollectionDb.findOne({id: id})
+        let product = await productsCollectionDb.findOne({id: id}) // шукає по бд
         if (product) {
             return product
         } else {
@@ -33,8 +34,8 @@ const filter:any = {}
         }
     },
     async updateProduct(id: number | string, title: string): Promise<boolean> {
-     const result = await productsCollectionDb.updateOne({id:id},{$set: {title:title}})
-      return result.matchedCount === 1
+        const result = await productsCollectionDb.updateOne({id: id}, {$set: {title: title}})
+        return result.matchedCount === 1
     },
     async deleteProduct(id: number) {
         let result = await productsCollectionDb.deleteOne({id: id})

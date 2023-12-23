@@ -36,7 +36,6 @@ productsRouter.route('/:id')
     })
     .put(titleValidation, inputValidationMiddleware,
        async (req, res: Response) => {
-
         let isUpdated = await productsRepository.updateProduct(req.params.id, req.body.title)
         if (isUpdated) {
             const product = await productsRepository.findProductById(+req.params.id)

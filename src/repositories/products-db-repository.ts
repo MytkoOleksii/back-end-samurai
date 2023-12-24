@@ -1,7 +1,7 @@
+// DAL -  DATA ACCESS LAYER
 import {productsCollectionDb} from "../db/db";
-import {WithId} from "mongodb";
 
-const __products: ProductType[] = [{id: 1, title: 'tomato'}, {id: 2, title: 'orange'}]
+//const __products: ProductType[] = [{id: 1, title: 'tomato'}, {id: 2, title: 'orange'}]
 export type ProductType = {
     id: number | string
     title: string
@@ -20,18 +20,12 @@ export const productsRepository = {
         }
 
     },
-    async createProduct(title: string): Promise<ProductType> {
-        const newProduct = {id: +(new Date()), title: title}
+    async createProduct(newProduct: ProductType): Promise<ProductType> {
         await productsCollectionDb.insertOne(newProduct)
         return newProduct
     },
     async findProductById(id: number): Promise<ProductType | null | any> {
-        let product = await productsCollectionDb.findOne({id: id}) // шукає по бд
-        if (product) {
-            return product
-        } else {
-            return null
-        }
+        return await productsCollectionDb.findOne({id: id})// шукає по бд
     },
     async updateProduct(id: number | string, title: string): Promise<boolean> {
         const result = await productsCollectionDb.updateOne({id: id}, {$set: {title: title}})

@@ -1,5 +1,6 @@
+// PRESENTATION LAYER
 import express, {Request, Response} from "express";
-import {productsRepository, ProductType} from "../repositories/products-db-repository";
+import {productsServiceBLL} from "../domain/products-service"
 import {body} from "express-validator";
 import {inputValidationMiddleware} from "../middlewares/input-validation-middleware";
 
@@ -9,7 +10,7 @@ const titleValidation = body('title').trim().isLength({min:3,max:10})
 
 productsRouter.route('/')
     .get( async (req, res: Response) => {
-        const foundProducts = await productsRepository.findProducts(req.query.title?.toString())
+        const foundProducts = await productsServiceBLL.findProducts(req.query.title?.toString())
         res.send(foundProducts)
     })
     .post( titleValidation,inputValidationMiddleware,
@@ -22,12 +23,12 @@ productsRouter.route('/')
           if(!errors.isEmpty()) {
               return res.status(400).json({errors:errors.array()})
           }*/
-          const newProduct = await productsRepository.createProduct(req.body.title)
+          const newProduct = await productsServiceBLL.createProduct(req.body.title)
           res.status(201).send(newProduct)
       })
 productsRouter.route('/:id')
     .get( async (req, res: Response) => {
-        let product = await productsRepository.findProductById(+req.params.id)
+        let product = await productsServiceBLL.findProductById(+req.params.id)
         if (product) {
             res.send(product)
         } else {
@@ -36,16 +37,16 @@ productsRouter.route('/:id')
     })
     .put(titleValidation, inputValidationMiddleware,
        async (req, res: Response) => {
-        let isUpdated = await productsRepository.updateProduct(req.params.id, req.body.title)
+        let isUpdated = await productsServiceBLL.updateProduct(req.params.id, req.body.title)
         if (isUpdated) {
-            const product = await productsRepository.findProductById(+req.params.id)
+            const product = await productsServiceBLL.findProductById(+req.params.id)
             res.send(product)
         } else {
             res.send(404)
         }
     })
     .delete(async (req, res: Response) => {
-        let isDeleted = await productsRepository.deleteProduct(+req.params.id)
+        let isDeleted = await productsServiceBLL.deleteProduct(+req.params.id)
         if (isDeleted) {
             res.send(204)
         }
@@ -58,7 +59,7 @@ export const productsRouter = express.Router()
 
 productsRouter.route('/')
     .get((req, res: any) => {
-        productsRepository.findProducts(req.query.title)
+        productsServiceBLL.findProducts(req.query.title)
         if (req.query.title) {
             let searchString = req.query.title.toString()
             res.send(products.filter(p => p.title.indexOf(searchString) > -1))
